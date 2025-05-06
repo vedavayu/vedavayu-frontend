@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0a8a5f;
+  --primary-light: #2ab977;
+  --secondary: #9ed06f;
+  --secondary-light: #b2df84;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-neutral-800 leading-relaxed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-medium leading-tight;
+}
+
+/* Button styles */
+.btn {
+  @apply px-6 py-2.5 rounded-md font-medium transition-all duration-300 inline-flex items-center justify-center;
+}
+
+.btn-primary {
+  @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50;
+}
+
+.btn-outline {
+  @apply border border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50;
+}
+
+.btn-secondary {
+  @apply bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-2 focus:ring-secondary-500 focus:ring-opacity-50;
+}
+
+/* Section styles */
+.section {
+  @apply py-16 md:py-24;
+}
+
+.section-heading {
+  @apply text-3xl md:text-4xl font-semibold mb-2 text-center;
+}
+
+.section-subheading {
+  @apply text-lg text-neutral-600 mb-12 max-w-3xl mx-auto text-center;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg;
+}
+
+/* Animation classes */
+.animate-on-scroll {
+  @apply opacity-0 translate-y-8 transition-all duration-700;
+}
+
+.animate-on-scroll.is-visible {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Service card hover effect */
+.service-card {
+  @apply relative overflow-hidden transition-all duration-300 transform hover:-translate-y-2;
+}
+
+.service-card::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-full h-1 bg-primary-600 transform scale-x-0 transition-transform duration-300 origin-left;
+}
+
+.service-card:hover::after {
+  @apply scale-x-100;
+}
+
+/* Custom slider dots */
+.slick-dots li button:before {
+  @apply text-primary-600 opacity-50;
+}
+
+.slick-dots li.slick-active button:before {
+  @apply text-primary-600 opacity-100;
+}
+
+/* Count animation */
+.count-value {
+  counter-reset: count 0;
+  animation: count-up 2s forwards;
+}
+
+@keyframes count-up {
+  to {
+    counter-increment: count attr(data-count);
+    content: counter(count);
+  }
+}
+
+/* Statistics card */
+.stat-card {
+  @apply relative p-6 rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-lg border-l-4 border-primary-600;
+}
+
+/* Make images responsive */
+img {
+  @apply max-w-full h-auto;
+}
