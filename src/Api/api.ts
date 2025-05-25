@@ -13,17 +13,30 @@ interface ErrorResponse {
 interface ImportMeta {
   env: {
     VITE_API_BASE_URL?: string;
+    VITE_API_FALLBACK_URL?: string;
   };
 }
 
+// Track if we're using fallback URL
+let usingFallback = false;
+
 function getBaseURL(): string {
+  // If we've already switched to fallback, use it
+  if (usingFallback && typeof import.meta !== 'undefined' && (import.meta as ImportMeta).env?.VITE_API_FALLBACK_URL) {
+    return `${(import.meta as ImportMeta).env.VITE_API_FALLBACK_URL}/api`;
+  }
+  
+  // Otherwise try primary URL
   if (typeof import.meta !== 'undefined' && (import.meta as ImportMeta).env?.VITE_API_BASE_URL) {
     return `${(import.meta as ImportMeta).env.VITE_API_BASE_URL}/api`;
   }
+  
+  // Fallbacks if environment variables aren't available
   if (typeof process !== 'undefined' && process.env?.REACT_APP_API_BASE_URL) {
     return `${process.env.REACT_APP_API_BASE_URL}/api`;
   }
-  return 'https://vedavayu-backend.onrender.com/'; // Use fixed base URL for development
+  
+  return 'https://vedavayu-backend.onrender.com/api'; // Use fixed base URL for development
 }
 
 const api = axios.create({
@@ -45,9 +58,28 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Add response interceptor with CORS error handling
 api.interceptors.response.use(
   (res: AxiosResponse) => res,
   (err: AxiosError<ErrorResponse>) => {
+    // Handle CORS errors and network errors
+    if (err.code === 'ERR_NETWORK' && !usingFallback) {
+      console.warn('Network error detected, switching to fallback API URL');
+      usingFallback = true;
+      
+      // Create a new axios instance with the fallback URL
+      const fallbackApi = axios.create({
+        baseURL: getBaseURL(), // This will now use the fallback URL
+        headers: api.defaults.headers,
+      });
+      
+      // Retry the request with the fallback API
+      if (err.config) {
+        // Clone the original request
+        return fallbackApi.request(err.config);
+      }
+    }
+    
     if (err.response) {
       const originalRequest = err.config;
       const isPublicRoute = originalRequest?.url?.startsWith('/banners');

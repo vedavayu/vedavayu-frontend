@@ -11,6 +11,7 @@ import { AuthResponse } from './Api/api';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ApiStatusAlert from './components/ApiStatusAlert';
 
 // Import core components immediately needed
 import Home from './pages/Home';
@@ -110,7 +111,6 @@ const App: React.FC = () => {
       }
     });
   };
-
   const PublicLayout: React.FC = () => (
     <ServicesProvider>
       <StatisticsProvider>
@@ -123,12 +123,12 @@ const App: React.FC = () => {
               </Suspense>
             </main>
             <Footer />
+            <ApiStatusAlert />
           </div>
         </ReportsProvider>
       </StatisticsProvider>
     </ServicesProvider>
   );
-
   const ProtectedAdminRoute: React.FC = () => {
     const location = useLocation();
   
@@ -142,6 +142,7 @@ const App: React.FC = () => {
             <PartnersProvider>
               <Suspense fallback={<LoadingFallback />}>
                 <AdminLayout />
+                <ApiStatusAlert />
               </Suspense>
             </PartnersProvider>
           </ReportsProvider>
