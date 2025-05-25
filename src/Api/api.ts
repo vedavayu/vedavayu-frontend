@@ -23,7 +23,7 @@ function getBaseURL(): string {
   if (typeof process !== 'undefined' && process.env?.REACT_APP_API_BASE_URL) {
     return `${process.env.REACT_APP_API_BASE_URL}/api`;
   }
-  return 'http://localhost:5000/api'; // Use fixed base URL for development
+  return 'https://vedavayu-backend.onrender.com/'; // Use fixed base URL for development
 }
 
 const api = axios.create({
