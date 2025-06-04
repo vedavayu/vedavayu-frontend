@@ -17,31 +17,24 @@ import VedavayuLogo from '/vedavayu-logo.png';
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white relative overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-72 h-72 rounded-full bg-secondary-400 opacity-5 blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-primary-400 opacity-5 blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full bg-secondary-300 opacity-5 blur-3xl animate-pulse delay-2000"></div>
-      </div>
-
 
       <div className="container mx-auto px-4 py-16 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Column 1 - Logo & About */}
           <div className="lg:col-span-2">
-            <div className="flex items-center mb-6 bg-gradient-to-r from-primary-800 to-transparent p-4 rounded-lg">
+            <div className="flex items-center mb-6 p-4 rounded-lg bg-transparent">
               <img src={VedavayuLogo} alt="Vedavayu Logo" className="h-20 w-auto mr-4" />
               <div>
-                <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-secondary-400">
+                <h2 className="text-2xl font-bold text-white">
                   Vedavayu
                 </h2>
-                <p className="text-sm text-secondary-400">Healing Beyond Medicine</p>
+                <p className="text-sm text-white">Healing Beyond Medicine</p>
               </div>
             </div>
             <div className="relative">
               <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-secondary-400 via-transparent to-transparent"></div>
               <p className="text-neutral-200 text-sm leading-relaxed mb-6 pl-4">
-              At Vedavāyu, we believe true wellness goes beyond prescriptions. We are a holistic healthcare and wellness platform offering natural, preventive, and science-backed services—right at your doorstep or online.
+                At Vedavāyu, we believe true wellness goes beyond prescriptions. We are a holistic healthcare and wellness platform offering natural, preventive, and science-backed services—right at your doorstep or online.
               </p>
             </div>
             <div className="flex space-x-3">
@@ -99,7 +92,7 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-4">
               {[
-                { icon: <MapPin size={20} />, text: "123 Wellness Avenue, Healing Center, New Delhi, 110001, India" },
+                { icon: <MapPin size={20} />, text: "Gandhinagar, Railgate Panikhaiti, Guwahati, Assam 781026" },
                 { icon: <Phone size={20} />, text: "+91 9401986069" },
                 { icon: <Mail size={20} />, text: "contact@vedavayu.com" },
               ].map((contact, index) => (
